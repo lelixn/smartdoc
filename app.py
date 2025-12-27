@@ -9,6 +9,62 @@ from model.qa_model import answer_question
 from model.summarizer import summarize
 
 
+st.markdown("""
+<style>
+/* Main background */
+.main {
+    background-color: #0e1117;
+    color: #fafafa;
+}
+
+/* Headings */
+h1, h2, h3 {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+}
+
+/* Cards */
+.block-container {
+    padding-top: 2rem;
+}
+
+/* Input boxes */
+input, textarea {
+    border-radius: 10px !important;
+}
+
+/* Buttons */
+.stButton button {
+    background: linear-gradient(90deg, #4f46e5, #9333ea);
+    color: white;
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    border: none;
+}
+
+.stButton button:hover {
+    opacity: 0.9;
+}
+
+/* File uploader */
+[data-testid="stFileUploader"] {
+    border: 1px dashed #4f46e5;
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+/* Answer box */
+.answer-box {
+    background: #111827;
+    padding: 1.2rem;
+    border-radius: 12px;
+    border-left: 4px solid #4f46e5;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 
 st.set_page_config(
     page_title="SmartDoc AI",
@@ -16,7 +72,14 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📘 SmartDoc AI — Advanced Document Intelligence")
+st.markdown("## 📘 SmartDoc AI")
+st.markdown(
+    "<span style='color:#9ca3af'>Ask questions, retrieve insights, and summarize documents using AI.</span>",
+    unsafe_allow_html=True
+)
+
+st.divider()
+
 st.write("Ask questions, retrieve answers, and summarize documents using AI.")
 
 
@@ -63,8 +126,12 @@ if uploaded_file:
                 question
             )
 
-        st.subheader("🧠 Answer")
-        st.success(result["answer"])
+        st.markdown("### 🧠 Answer")
+st.markdown(
+    f"<div class='answer-box'>{result['answer']}</div>",
+    unsafe_allow_html=True
+)
+
 
         with st.expander("📌 Source Context"):
             st.write(combined_context)
@@ -73,8 +140,21 @@ if uploaded_file:
     st.divider()
     st.subheader("📄 Document Summary")
 
-    if st.button("Generate Summary"):
-        with st.spinner("✍️ Summarizing document..."):
-            summary = summarize(raw_text)
 
-        st.info(summary)
+with st.sidebar:
+    st.markdown("## ⚙️ Controls")
+    st.markdown("Use AI to explore your document.")
+
+    if st.button("📄 Generate Summary"):
+        with st.spinner("Summarizing..."):
+            summary = summarize(raw_text)
+        st.markdown("### ✨ Summary")
+        st.write(summary)
+
+
+
+st.markdown("---")
+st.markdown(
+    "<center style='color:#6b7280'>Built with ❤️ using PyTorch, Hugging Face & Streamlit</center>",
+    unsafe_allow_html=True
+)
