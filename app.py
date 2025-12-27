@@ -9,31 +9,34 @@ from model.qa_model import answer_question
 from model.summarizer import summarize
 
 
+
+st.set_page_config(
+    page_title="SmartDoc AI",
+    page_icon="📘",
+    layout="wide"
+)
+
+
 st.markdown("""
 <style>
-/* Main background */
 .main {
     background-color: #0e1117;
     color: #fafafa;
 }
 
-/* Headings */
 h1, h2, h3 {
     font-family: 'Segoe UI', sans-serif;
     font-weight: 600;
 }
 
-/* Cards */
 .block-container {
     padding-top: 2rem;
 }
 
-/* Input boxes */
 input, textarea {
     border-radius: 10px !important;
 }
 
-/* Buttons */
 .stButton button {
     background: linear-gradient(90deg, #4f46e5, #9333ea);
     color: white;
@@ -47,14 +50,12 @@ input, textarea {
     opacity: 0.9;
 }
 
-/* File uploader */
 [data-testid="stFileUploader"] {
     border: 1px dashed #4f46e5;
     padding: 1rem;
     border-radius: 12px;
 }
 
-/* Answer box */
 .answer-box {
     background: #111827;
     padding: 1.2rem;
@@ -65,26 +66,16 @@ input, textarea {
 """, unsafe_allow_html=True)
 
 
-
-st.set_page_config(
-    page_title="SmartDoc AI",
-    page_icon="📘",
-    layout="wide"
-)
-
 st.markdown("## 📘 SmartDoc AI")
 st.markdown(
     "<span style='color:#9ca3af'>Ask questions, retrieve insights, and summarize documents using AI.</span>",
     unsafe_allow_html=True
 )
-
 st.divider()
-
-st.write("Ask questions, retrieve answers, and summarize documents using AI.")
 
 
 uploaded_file = st.file_uploader(
-    "Upload a PDF document",
+    "📄 Upload a PDF document",
     type=["pdf"]
 )
 
@@ -93,18 +84,18 @@ if uploaded_file:
         raw_text = load_pdf(uploaded_file)
 
     if not raw_text.strip():
-        st.error("No readable text found in PDF.")
+        st.error("No readable text found in the PDF.")
         st.stop()
 
     with st.spinner("✂️ Splitting document into chunks..."):
         chunks = split_text(raw_text)
 
-    with st.spinner("🧠 Creating embeddings (this runs once)..."):
+    with st.spinner("🧠 Creating embeddings (runs once)..."):
         doc_embeddings = embed_text(chunks)
 
     st.success(f"Document processed successfully ({len(chunks)} chunks).")
 
- 
+    
     st.subheader("❓ Ask a Question")
     question = st.text_input("Type your question here")
 
@@ -127,30 +118,24 @@ if uploaded_file:
             )
 
         st.markdown("### 🧠 Answer")
-st.markdown(
-    f"<div class='answer-box'>{result['answer']}</div>",
-    unsafe_allow_html=True
-)
-
+        st.markdown(
+            f"<div class='answer-box'>{result['answer']}</div>",
+            unsafe_allow_html=True
+        )
 
         with st.expander("📌 Source Context"):
             st.write(combined_context)
 
-    
-    st.divider()
-    st.subheader("📄 Document Summary")
+   
+    with st.sidebar:
+        st.markdown("## ⚙️ Controls")
+        st.markdown("Use AI to explore your document.")
 
-
-with st.sidebar:
-    st.markdown("## ⚙️ Controls")
-    st.markdown("Use AI to explore your document.")
-
-    if st.button("📄 Generate Summary"):
-        with st.spinner("Summarizing..."):
-            summary = summarize(raw_text)
-        st.markdown("### ✨ Summary")
-        st.write(summary)
-
+        if st.button("📄 Generate Summary"):
+            with st.spinner("✍️ Summarizing document..."):
+                summary = summarize(raw_text)
+            st.markdown("### ✨ Summary")
+            st.write(summary)
 
 
 st.markdown("---")
