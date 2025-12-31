@@ -1,11 +1,26 @@
 from transformers import pipeline
 
-# Load once (VERY IMPORTANT for performance)
-_qa_pipeline = pipeline(
-    task="question-answering",
-    model="deepset/roberta-base-squad2",
-    framework="pt"
-)
+# # Load once (VERY IMPORTANT for performance)
+# _qa_pipeline = pipeline(
+#     task="question-answering",
+#     model="deepset/roberta-base-squad2",
+#     framework="pt"
+# )
+
+import streamlit as st
+from transformers import pipeline
+
+
+@st.cache_resource(show_spinner=False)
+def load_qa_pipeline():
+    return pipeline(
+        task="question-answering",
+        model="deepset/roberta-base-squad2",
+        framework="pt"
+    )
+
+
+_qa_pipeline = load_qa_pipeline()
 
 
 def answer_question(context: str, question: str) -> dict:

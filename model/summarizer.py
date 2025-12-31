@@ -1,11 +1,27 @@
 from transformers import pipeline
 
 # Load once for performance
-_summarizer = pipeline(
-    task="summarization",
-    model="facebook/bart-large-cnn",
-    framework="pt"
-)
+# _summarizer = pipeline(
+#     task="summarization",
+#     model="facebook/bart-large-cnn",
+#     framework="pt"
+# )
+
+import streamlit as st
+from transformers import pipeline
+
+
+@st.cache_resource(show_spinner=False)
+def load_summarizer():
+    return pipeline(
+        task="summarization",
+        model="facebook/bart-large-cnn",
+        framework="pt"
+    )
+
+
+_summarizer = load_summarizer()
+
 
 
 def summarize(text: str, max_length=150, min_length=40) -> str:

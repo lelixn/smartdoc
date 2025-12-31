@@ -1,8 +1,37 @@
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
-# Load once (IMPORTANT)
-_embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+import streamlit as st
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+
+@st.cache_resource(show_spinner=False)
+def load_embedding_model():
+    return SentenceTransformer("all-MiniLM-L6-v2")
+
+
+_embedding_model = load_embedding_model()
+
+
+def embed_text(texts: list) -> np.ndarray:
+    return _embedding_model.encode(
+        texts,
+        convert_to_numpy=True,
+        show_progress_bar=False
+    )
+
+
+def embed_query(query: str) -> np.ndarray:
+    return _embedding_model.encode(
+        query,
+        convert_to_numpy=True
+    )
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+# # Load once (IMPORTANT)
+# _embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 
 def embed_text(texts: list) -> np.ndarray:
