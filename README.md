@@ -56,23 +56,6 @@ Question Answering / Summarization
 | Similarity Search | scikit-learn              |
 | Deployment        | Streamlit-ready           |
 
-📂 Project Structure
-SmartDoc-AI/
-│
-├── app.py                 # Streamlit application
-├── requirements.txt
-│
-├── model/
-│   ├── embedder.py        # Embedding logic
-│   ├── qa_model.py        # Question answering pipeline
-│   └── summarizer.py      # Summarization pipeline
-│
-├── utils/
-│   ├── pdf_loader.py       # PDF text extraction
-│   ├── text_splitter.py    # Text chunking
-│   └── semantic_search.py  # Vector similarity search
-│
-└── assets/                
 
 🚀 Getting Started
 
@@ -80,18 +63,22 @@ SmartDoc-AI/
 1️⃣ Clone the Repository
 git clone https://github.com/lelixn/SmartDoc-AI.git
 cd SmartDoc-AI
+```
 
-2️⃣ Create Virtual Environment (Recommended)
+```2️⃣ Create Virtual Environment (Recommended)
 python -m venv venv
 venv\Scripts\activate
+```
 
-3️⃣ Install Dependencies
+```3️⃣ Install Dependencies
 pip install -r requirements.txt
+```
 
-4️⃣ Run the App
+```4️⃣ Run the App
 streamlit run app.py
+```
 
-Open in browser:
+```Open in browser:
 http://localhost:8501
 ```
 
