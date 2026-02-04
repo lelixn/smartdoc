@@ -98,14 +98,9 @@ Ideas for contributions:
 - Deployment automation
 
 
-🧪 Example Use Cases-
-📚 Research paper Q&A
-🧾 Legal or policy document exploration
-📝 Academic notes summarization
-🏢 Enterprise document intelligence
 
-👤 Author
-Lelien Panda
+👤 Author <br>
+ Lelien Panda <br>
 📍 Bhubaneswar, Odisha
 
 
