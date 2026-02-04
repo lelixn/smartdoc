@@ -99,8 +99,3 @@ Ideas for contributions:
 
 
 
-👤 Author <br>
- Lelien Panda <br>
-📍 Bhubaneswar, Odisha
-
-
