@@ -9,7 +9,6 @@
 
 ### AI-Powered Document Intelligence System
 
-📸 UI Preview
 <p align="center">
   <img width="1901" height="919" alt="Screenshot 2025-12-27 195701"        src="https://github.com/user-attachments/assets/3ff4f7df-6bc8-420a-b30d-56d74373b5c6" />
 </p>
